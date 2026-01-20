@@ -16,8 +16,11 @@ public class SteeringBehaviour_Seek : SteeringBehaviour
 
     public override Vector2 CalculateForce()
     {
-        //delete me
-        return Vector2.zero;
+ 
+        m_DesiredVelocity = (m_TargetPosition - (Vector2)transform.position).normalized * m_Manager.m_Entity.m_MaxSpeed;
+        m_Steering = m_DesiredVelocity - m_Manager.m_Entity.m_Velocity;
+        return m_Steering * m_Weight;
+    
     }
 
     protected override void OnDrawGizmosSelected()

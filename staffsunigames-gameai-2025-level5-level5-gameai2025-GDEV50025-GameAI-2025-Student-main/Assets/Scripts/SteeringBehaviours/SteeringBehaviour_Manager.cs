@@ -20,7 +20,8 @@ public class SteeringBehaviour_Manager : MonoBehaviour
 	public Vector2 GenerateSteeringForce()
     {
         //delete me
-        return Vector2.zero;
+        return m_SteeringBehaviours[0].CalculateForce();
+        ;
     }
 
     public void EnableExclusive(SteeringBehaviour behaviour)

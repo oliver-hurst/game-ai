@@ -8,7 +8,7 @@ public class SteeringBehaviour_Flee : SteeringBehaviour
     [Header("Settings")]
     public Transform m_FleeTarget;
     public float m_FleeRadius;
-
+    
     [Space(10)]
 
     [Header("Debugs")]
@@ -17,12 +17,21 @@ public class SteeringBehaviour_Flee : SteeringBehaviour
 
     public override Vector2 CalculateForce()
     {
+         
         if (m_FleeTarget)
         {
-            //delete me
-            return Vector2.zero;
+           
+            Vector2 positionOfThis = (Vector2)transform.position;
+            float distance = Maths.Magnitude((Vector2)m_FleeTarget.position - positionOfThis);
+
+            m_DesiredVelocity = (positionOfThis - (Vector2)transform.position).normalized * m_Manager.m_Entity.m_MaxSpeed;
+            m_Steering = m_DesiredVelocity - m_Manager.m_Entity.m_Velocity;
+            return m_Steering * m_Weight;
+            
         }
         
+        
+
         return Vector2.zero;
     }
 
