@@ -20,13 +20,18 @@ public class SteeringBehaviour_Flee : SteeringBehaviour
          
         if (m_FleeTarget)
         {
-           
+            
             Vector2 positionOfThis = (Vector2)transform.position;
             float distance = Maths.Magnitude((Vector2)m_FleeTarget.position - positionOfThis);
 
-            m_DesiredVelocity = (positionOfThis - (Vector2)transform.position).normalized * m_Manager.m_Entity.m_MaxSpeed;
-            m_Steering = m_DesiredVelocity - m_Manager.m_Entity.m_Velocity;
-            return m_Steering * m_Weight;
+            if (distance > m_FleeRadius)
+                return Vector2.zero;
+
+            else if (distance <= m_FleeRadius)
+                m_DesiredVelocity = (positionOfThis - (Vector2)m_FleeTarget.position).normalized * m_Manager.m_Entity.m_MaxSpeed;
+                m_Steering = m_DesiredVelocity - m_Manager.m_Entity.m_Velocity;
+                return m_Steering * m_Weight;
+           
             
         }
         

@@ -508,7 +508,7 @@ MonoBehaviour:
   m_Debug_CurrentVelocityColour: {r: 0, g: 1, b: 0, a: 1}
   m_Debug_SteeringColour: {r: 1, g: 0, b: 0, a: 1}
   m_FleeTarget: {fileID: 468534934}
-  m_FleeRadius: 5
+  m_FleeRadius: 8
   m_Debug_RadiusColour: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
 --- !u!114 &653637319
 MonoBehaviour:
