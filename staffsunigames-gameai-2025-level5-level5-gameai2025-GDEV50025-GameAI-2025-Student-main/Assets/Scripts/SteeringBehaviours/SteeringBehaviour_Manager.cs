@@ -19,8 +19,30 @@ public class SteeringBehaviour_Manager : MonoBehaviour
 
 	public Vector2 GenerateSteeringForce()
     {
-        //delete me
-        return m_SteeringBehaviours[0].CalculateForce();
+        Vector2 totalForce = Vector2.zero;
+        m_RemainingForce = m_MaxForce;
+        foreach(SteeringBehaviour sb in m_SteeringBehaviours)
+        {
+            if(sb.m_Active)
+            {
+                Vector2 force = sb.CalculateForce();
+                float forceMagnitude = force.magnitude;
+                if(forceMagnitude < m_RemainingForce)
+                {
+                    totalForce += force;
+                    m_RemainingForce -= forceMagnitude;
+                }
+                else
+                {
+                    totalForce += force.normalized * m_RemainingForce;
+                    m_RemainingForce = 0;
+                    break;
+                }
+            }
+        }
+        return totalForce;
+
+        //return m_SteeringBehaviours[0].CalculateForce();
         ;
     }
 

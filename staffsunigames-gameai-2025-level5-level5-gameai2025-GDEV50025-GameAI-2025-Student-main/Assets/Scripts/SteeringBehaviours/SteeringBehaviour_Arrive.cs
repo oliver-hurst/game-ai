@@ -20,7 +20,19 @@ public class SteeringBehaviour_Arrive : SteeringBehaviour
 
     public override Vector2 CalculateForce()
     {
-        //delete me
+        Vector2 toTarget = m_TargetPosition - (Vector2)transform.position;
+        float distance = toTarget.magnitude;
+        if (distance > 0)
+        {
+            float targetSpeed = m_Manager.m_Entity.m_MaxSpeed;
+            if (distance < m_SlowingRadius)
+            {
+                targetSpeed = m_Manager.m_Entity.m_MaxSpeed * (distance / m_SlowingRadius);
+            }
+            m_DesiredVelocity = toTarget.normalized * targetSpeed;
+            m_Steering = m_DesiredVelocity - m_Manager.m_Entity.m_Velocity;
+            return m_Steering * m_Weight;
+        }
         return Vector2.zero;
     }
 

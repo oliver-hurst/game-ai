@@ -29,8 +29,17 @@ public class SteeringBehaviour_Wander : SteeringBehaviour
 
     public override Vector2 CalculateForce()
     {
-        //delete me
-        return Vector2.zero;
+       Vector2 force = base.CalculateForce();   
+        m_CirclePosition = (Vector2)transform.position + m_Manager.m_Entity.m_Velocity.normalized * m_WanderOffset;
+        m_Angle += Random.Range(-m_AngleDisplacement, m_AngleDisplacement);
+        float radianAngle = m_Angle * Mathf.Deg2Rad;
+        m_PointOnCircle = m_CirclePosition + new Vector2(Mathf.Cos(radianAngle), Mathf.Sin(radianAngle)) * m_WanderRadius;
+        m_DesiredVelocity = (m_PointOnCircle - (Vector2)transform.position).normalized * m_Manager.m_Entity.m_MaxSpeed;
+        m_Steering = m_DesiredVelocity - m_Manager.m_Entity.m_Velocity;
+        return m_Steering * m_Weight;
+            
+
+        //return Vector2.zero;
     }
 
 	protected override void OnDrawGizmosSelected()

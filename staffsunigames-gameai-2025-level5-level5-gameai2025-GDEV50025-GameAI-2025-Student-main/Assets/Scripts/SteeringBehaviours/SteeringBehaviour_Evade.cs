@@ -19,8 +19,17 @@ public class SteeringBehaviour_Evade : SteeringBehaviour
     {
         if (m_EvadingEntity)
         {
-            //delete me
-            return Vector2.zero;
+            Vector2 distance = (Vector2)m_EvadingEntity.transform.position - (Vector2)transform.position;
+            if (distance.magnitude < m_EvadeRadius)
+            {
+                float combinedSpeed = m_Manager.m_Entity.m_MaxSpeed + m_EvadingEntity.m_Velocity.magnitude;
+                float lookAheadTime = distance.magnitude / combinedSpeed;
+                Vector2 futurePosition = (Vector2)m_EvadingEntity.transform.position + m_EvadingEntity.m_Velocity * lookAheadTime;
+                m_DesiredVelocity = ((Vector2)transform.position - futurePosition).normalized * m_Manager.m_Entity.m_MaxSpeed;
+                m_Steering = m_DesiredVelocity - m_Manager.m_Entity.m_Velocity;
+                return m_Steering * m_Weight;
+            }
+           
         }
 
         return Vector2.zero;
