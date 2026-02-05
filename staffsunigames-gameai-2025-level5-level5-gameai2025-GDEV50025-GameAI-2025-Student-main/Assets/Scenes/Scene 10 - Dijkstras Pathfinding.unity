@@ -138,7 +138,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Active: 1
   m_Weight: 5
-  m_Debug_ShowDebugLines: 0
+  m_Debug_ShowDebugLines: 1
   m_Debug_DesiredVelocityColour: {r: 0, g: 0, b: 0, a: 1}
   m_Debug_CurrentVelocityColour: {r: 0, g: 1, b: 0, a: 1}
   m_Debug_SteeringColour: {r: 1, g: 0, b: 0, a: 1}
@@ -178,7 +178,7 @@ MonoBehaviour:
   m_MaxTurnDegrees: 90
   m_Dijkstra:
     m_AllowDiagonal: 1
-    m_CanCutCorners: 0
+    m_CanCutCorners: 1
     m_Debug_ChangeTileColours: 1
   m_Debug_DrawPath: 1
 --- !u!114 &244710698
@@ -542,11 +542,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 3021012874532151524, guid: e0e77f31d83ee04448d7f4d971aac142, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: -8.26
       objectReference: {fileID: 0}
     - target: {fileID: 3021012874532151524, guid: e0e77f31d83ee04448d7f4d971aac142, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 4.35
       objectReference: {fileID: 0}
     - target: {fileID: 3021012874532151524, guid: e0e77f31d83ee04448d7f4d971aac142, type: 3}
       propertyPath: m_LocalPosition.z

@@ -1,7 +1,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using Unity.Loading;
+using Unity.VisualScripting;
 using UnityEngine;
+using static UnityEngine.RuleTile.TilingRuleOutput;
 
 [System.Serializable]
 public class Pathfinding_Dijkstra : PathFinding
@@ -33,7 +35,7 @@ public class Pathfinding_Dijkstra : PathFinding
 	{
 		//clears the current path
 		m_Path.Clear();
-		
+
 		//lists to track visited and none visited nodes
 		List<NodeInformation> visited = new List<NodeInformation>();
 		List<NodeInformation> notVisited = new List<NodeInformation>();
@@ -55,12 +57,80 @@ public class Pathfinding_Dijkstra : PathFinding
 				break;
 			}
 
-            //delete me
-            //Write Dijkstra's Algorithm here.
-        }
+			if (current.node == end)
+			{
+				Debug.Log("Path Found, start pos = " + start.transform.position + " - end pos = " + end.transform.position);
+				SetPath(current);
+				DrawPath(visited, notVisited);
+				return;
+			}
 
-        Debug.LogError("No path found, start pos = " + start.transform.position + " - end pos = " + end.transform.position);
-	}
+
+
+
+			for (int i = 0; i < 8; ++i)
+			{
+
+				GridNode neighbour = current.node.Neighbours[i];
+
+
+				if (neighbour == null || !neighbour.m_Walkable || visited.Any(n => n.node == neighbour))
+				{
+
+
+					continue;
+				}
+				//checks if node is in the list
+				//newNode = notVisited.Find(x => x.node == neighbour).cost;
+
+
+				float distance = Maths.Magnitude(neighbour.transform.position - current.node.transform.position);
+				float current_cost = current.cost + distance;
+				float newNode;
+				if (notVisited.Any(n => n.node == neighbour))
+				{
+					newNode = notVisited.Find(x => x.node == neighbour).cost;
+
+					if (newNode > current_cost  )
+					{
+						notVisited.Find(x => x.node == neighbour).UpdateNodeInformation(current, current_cost);
+                        
+                    }
+					else
+					{
+                        //notVisited.Add(new NodeInformation(neighbour, current, current_cost));
+                        notVisited.Remove(current);
+                        visited.Add(current);
+                    }
+
+
+                }
+                else
+                {
+                    notVisited.Add(new NodeInformation(neighbour, current, current_cost));
+                    notVisited.Remove(current);
+                    visited.Add(current);
+                }
+                
+
+
+              
+			}
+            if (notVisited.Count > 0)
+            {
+                current = GetCheapestNode(notVisited);
+
+
+            }
+            else
+            {
+
+                break;
+            }
+            Debug.LogError("No path found, start pos = " + start.transform.position + " - end pos = " + end.transform.position);
+		}
+
+	}	
 
 	/// <summary>
 	/// pass in the final node information and sets m_Path

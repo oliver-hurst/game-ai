@@ -29,7 +29,7 @@ public class SteeringBehaviour_Wander : SteeringBehaviour
 
     public override Vector2 CalculateForce()
     {
-       Vector2 force = base.CalculateForce();   
+       //Vector2 force = base.CalculateForce();   
         m_CirclePosition = (Vector2)transform.position + m_Manager.m_Entity.m_Velocity.normalized * m_WanderOffset;
         m_Angle += Random.Range(-m_AngleDisplacement, m_AngleDisplacement);
         float radianAngle = m_Angle * Mathf.Deg2Rad;
