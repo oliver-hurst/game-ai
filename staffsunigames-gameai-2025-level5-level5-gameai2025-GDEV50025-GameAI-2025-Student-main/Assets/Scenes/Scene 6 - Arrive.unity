@@ -557,7 +557,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f1105e30241a0d4459dafa83e2b17f6f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Active: 0
+  m_Active: 1
   m_Weight: 5
   m_Debug_ShowDebugLines: 1
   m_Debug_DesiredVelocityColour: {r: 0, g: 0, b: 0, a: 1}
